@@ -40,7 +40,7 @@ $nh = Core::make('helper/navigation') ?>
                 <a href="<?=$ul->getSortURL('u.uName',$dir)?>">Nickname</a>
             </th>
             <th><a href="<?=$ul->getSortURL('u.uEmail',$dir)?>">E-Mail</a></th>
-            <th class="text-center"><a href="<? php //$ul->getSortURL('balance',$dir)?>">Balance</a></th>
+            <th class="text-center"><a>Balance</a></th>
             <th class="text-right"><a>Actions</a></th>
         </tr>
         </thead>
