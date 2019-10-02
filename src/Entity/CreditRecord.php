@@ -1,36 +1,52 @@
 <?php
-namespace Concrete\Package\CreditManager\Src\Entity;
+namespace CreditManager\Entity;
 
+use Concrete\Core\Support\Facade\Database;
+use Doctrine\ORM\Mapping as ORM;
+use CreditManager\Repository\CreditRecordList;
 use User;
 use Page;
 
 /**
- * @Entity(repositoryClass="Concrete\Package\CreditManager\Src\Repository\CreditRecordList")
- * @Table(name="CreditRecord")
+ * @ORM\Entity()
+ * @ORM\Table(name="cmCreditRecord")
  *
  */
 class CreditRecord
 {
     /**
-     * @Id @Column(type="integer")
-     * @GeneratedValue
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue
      */
     protected $Id;
+
     /**
-     * @Column(type="integer")
+     * @ORM\Column(type="integer")
      */
     protected $uId;
-    /** @Column(type="text", nullable=true) */
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
     protected $comment;
-    /** @Column(type="datetime", name="timestamp", nullable=false) */
+
+    /**
+     * @ORM\Column(type="datetime", name="timestamp", nullable=false)
+     */
     protected $timestamp;
-    /** @Column(type="text", nullable=true) */
-    protected $package;
-    /** @Column(type="float", nullable=false) */
+
+    /**
+     * @ORM\Column(type="float", nullable=false)
+     */
     protected $value;
 
-    public function __construct() {
-
+    public function __construct($user, $value, $comment) {
+        $this->setUser($user);
+        $this->setValue($value);
+        $this->setComment($comment);
+        $this->setTimestamp();
+        return $this;
     }
 
     public function getId()
@@ -40,10 +56,6 @@ class CreditRecord
 
     public function getUser(){
         return User::getByID($this->uId);
-    }
-
-    public function getPackage(){
-        return $this->package;
     }
 
     public function getComment(){
@@ -58,36 +70,37 @@ class CreditRecord
         return $this->value;
     }
 
-    public function setUser($user){
+    private function setUser($user){
         if(is_object($user)){
             $this->uId = $user->getUserID();
         } elseif(is_numeric($user)){
             $this->uId = $user;
         }
+        return $this;
     }
 
-    public function setComment($comment)
+    private function setComment($comment)
     {
         $this->comment = $comment;
         return $this;
     }
 
-    public function setTimestamp()
+    private function setTimestamp()
     {
-        $this->sentAt = new \DateTime('now');
+        $this->timestamp = new \DateTime('now');
         return $this;
     }
 
-    public function setValue($value){
+    private function setValue($value){
         return $this->value = $value;
     }
 
-    public function setPackage($pkg){
-        if(is_object($pkg)){
-            $this->package = $pkg->getPackageHandle();
-        } elseif(is_string($pkg)){
-            $this->package = $pkg;
-        }
+    public static function addRecord($user, $value, $comment){
+        $db = Database::connection();
+        $em = $db->getEntityManager();
+        $cr = new CreditRecord($user, $value, $comment);
+        $em->persist($cr);
+        $em->flush();
+        return $cr;
     }
-
 }

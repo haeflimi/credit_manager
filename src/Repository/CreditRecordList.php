@@ -1,5 +1,5 @@
 <?php
-namespace Concrete\Package\CreditManager\Src\Repository;
+namespace CreditManager\Repository;
 
 use Concrete\Core\Search\ItemList\Database\AttributedItemList as DatabaseItemList;
 use Concrete\Core\Search\Pagination\Pagination;
@@ -32,7 +32,7 @@ class CreditRecordList extends DatabaseItemList
 
     public function finalizeQuery(\Doctrine\DBAL\Query\QueryBuilder $query)
     {
-        $query->from('CreditRecord', 'cr');
+        $query->from('cmCreditRecord', 'cr');
         return $query;
     }
 
