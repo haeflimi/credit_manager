@@ -5,6 +5,7 @@ $fh = Core::make('helper/form');?>
         <div class="form-group">
             <label><?= t('Add/ Subtract Value') ?></label>
             <?=$fh->number('recordValue', ['class'=>'form-control'])?>
+            <small class="text-muted"><?=t('Positive Values add to the balance, negative values substract from it.')?></small>
         </div>
         <div class="form-group">
             <label for="comment"><?= t('Comment') ?></label>

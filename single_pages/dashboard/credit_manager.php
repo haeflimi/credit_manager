@@ -73,7 +73,7 @@ $nh = Core::make('helper/navigation') ?>
             href: '/ccm/credit_manager/add_record/'+uId,
             title: 'Add Record',
             width: '280',
-            height: '220',
+            height: '300',
             modal: true
         });
         return false;
