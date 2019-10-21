@@ -19,7 +19,7 @@ class Controller extends Package implements ProviderAggregateInterface
 {
     protected $pkgHandle = 'credit_manager';
     protected $appVersionRequired = '8.4';
-    protected $pkgVersion = '0.956';
+    protected $pkgVersion = '1.0';
     protected $pkgAutoloaderRegistries = array(
         'src/PaymentMethods' => '\CreditManager\PaymentMethods',
         'src/Entity' => '\CreditManager\Entity',

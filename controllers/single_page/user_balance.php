@@ -23,7 +23,7 @@ class UserBalance extends PageController
         $ui = $u->getUserInfoObject();
 
         // Get Balance Data
-        if($ui->getAttribute('tgc_balance') >= 0){
+        if(CreditManager::getUserBalance($u) >= 0){
             $this->set('balanceWord', t('Credit'));
         } else {
             $this->set('balanceWord', t('Debt'));

@@ -8,6 +8,8 @@ use Concrete\Core;
 use Concrete\Core\Http\Request;
 use Concrete\Core\Support\Facade\Config;
 use Concrete\Core\User\User;
+use CreditManager\CreditManager;
+use CreditManager\Entity\CreditRecord;
 use UserAttributeKey;
 use Log;
 use PayPalCheckoutSdk\Orders\OrdersGetRequest;
@@ -154,10 +156,8 @@ class Paypal
     private function updateBalance($user, $amount)
     {
         if (is_object($user) && is_numeric($amount)) {
-            $ui = $user->getUserInfoObject();
-            $balance = $ui->getAttribute('tgc_balance');
-            $newBalance = $balance + $amount;
-            $ui->setAttribute('tgc_balance', $newBalance);
+            $now = new \DateTime('now');
+            CreditRecord::addRecord($user, $amount, 'Überweisung per Paypal vom '.$now->format('d.m.Y h:i'));
             return true;
         } else {
             throw Exception('Something went wrong when updating the User balance!');
