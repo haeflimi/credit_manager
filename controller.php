@@ -50,17 +50,6 @@ class Controller extends Package implements ProviderAggregateInterface
     {
         $pkg = Package::getByHandle($this->pkgHandle);
 
-        // we need this Asset in order to be able to use Pnotify.
-        // @todo mabe in the future there will be a sepparate asset for the notification system!? A lot overhead like this.
-        $view = new View();
-        $view->requireAsset('core/app');
-
-        // hook into the delete_user event in order to remove deleted users from any ongoing Newsletter mailings
-        Events::addListener('on_user_delete', function ($event) {
-            // @todo implement some kind of secure resitting for user founds
-        });
-
-        // @todo add routs for datatables to get the Data, paypal and stripe to report payments, etc
         // register routes for payment method callbacks and modal dialogs
         Route::registerMultiple(array(
             '/ccm/credit_manager/callback/paypal' => array('\CreditManager\PaymentMethods\Paypal::callback'),
@@ -138,18 +127,5 @@ class Controller extends Package implements ProviderAggregateInterface
         $creditManager = Page::getByPath('/dashboard/credit_manager');
         $creditManager->assignPermissions($cmGroup, array('view_page'));
         $creditManager->assignPermissions($adminGroup, array('view_page'));
-
-        /*$pkcHandle = 'credit_manager';
-        if (!PermissionCategory::getByHandle($pkcHandle)) {
-            PermissionCategory::add($pkcHandle, $pkg);
-        }
-        $pkHandle = 'manage_credits';
-        if (!PermissionKey::getByHandle($pkHandle)) {
-            $pk = PermissionKey::add($pkcHandle, $pkHandle, t('Manage Credits'), t('Can Manage and view all Credit Manager Balances and Transactions.'), false, false, $pkg);
-            $pa = PermissionAccess::create($pk);
-            $pa->addListItem($cmGroupEntity);
-            $pao = $pk->getPermissionAssignmentObject();
-            $pao->assignPermissionAccess($pa);
-        }*/
     }
 }
