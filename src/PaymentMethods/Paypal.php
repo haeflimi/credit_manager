@@ -65,7 +65,6 @@ class Paypal
             echo 'No valid Request Information';
             exit;
         }
-        file_put_contents('webhook_calls.txt', $req->getContent());
         $requestData = json_decode($req->getContent());
         $userID = base64_decode($requestData->resource->custom);
         $amount = $requestData->resource->amount->total;
