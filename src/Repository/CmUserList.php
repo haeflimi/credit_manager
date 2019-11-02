@@ -27,4 +27,9 @@ class CmUserList extends UserList
         return $this->query->leftJoin('u', 'cmCreditRecord', 'cmu', 'u.uID = cmu.uId')
             ->addSelect('SUM(cmu.value) as balance');
     }
+
+    public function filterByBalance()
+    {
+        return $this->query->having("SUM(cmu.value) <> 0");
+    }
 }
