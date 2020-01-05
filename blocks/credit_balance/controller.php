@@ -49,6 +49,7 @@ class Controller extends BlockController
         $user = new User();
         $ui = $user->getUserInfoObject();
         $balance = CreditManager::getUserBalance($user);
+        $paymentHandle = 'tgc_balance';
         $this->set('balance', $balance);
 
         $this->set('paypalPrice', abs($balance));

@@ -148,7 +148,7 @@ class Paypal
             $cl->addParticipant($user);
             $ui->setAttribute($cl->getLANHandle() . '_paid', true);
         } else {
-            throw Exception('Something went wrong when adding User to Event participants.');
+            throw new Exception('Something went wrong when adding User to Event participants.');
         }
     }
 
@@ -159,7 +159,7 @@ class Paypal
             CreditRecord::addRecord($user, $amount, 'Überweisung per Paypal vom '.$now->format('d.m.Y h:i'));
             return true;
         } else {
-            throw Exception('Something went wrong when updating the User balance!');
+            throw new Exception('Something went wrong when updating the User balance!');
         }
     }
 }
