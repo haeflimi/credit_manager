@@ -6,6 +6,7 @@ use \Concrete\Core\Block\BlockController;
 use \Concrete\Core\Package\Package;
 use Concrete\Core\Support\Facade\Config;
 use Concrete\Core\User\User;
+use CreditManager\CreditManager;
 
 defined('C5_EXECUTE') or die('Access Denied.');
 
@@ -47,8 +48,7 @@ class Controller extends BlockController
     {
         $user = new User();
         $ui = $user->getUserInfoObject();
-        $paymentHandle = 'tgc_balance';
-        $balance = $ui->getAttribute($paymentHandle);
+        $balance = CreditManager::getUserBalance($user);
         $this->set('balance', $balance);
 
         $this->set('paypalPrice', abs($balance));
