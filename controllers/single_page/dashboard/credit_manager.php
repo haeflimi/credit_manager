@@ -26,8 +26,12 @@ class CreditManager extends DashboardPageController
     public function view()
     {
         $ul = new CmUserList();
-        if($keywords = $this->get('keywords'))$ul->filterByKeywords($keywords);
-        $ul->filterByBalance();
+        // only apply default filtering when not looking for someone specific
+        if($keywords = $this->get('keywords')){
+            $ul->filterByKeywords($keywords);
+        } else {
+            $ul->filterByGroup('TGC Members');
+        }
         $ul->sortByUserName();
         $this->set('userList', $ul->getResults());
         $this->set('ul', $ul);
