@@ -3,6 +3,7 @@ namespace CreditManager;
 
 use Concrete\Core\Support\Facade\Database;
 use Concrete\Core\User\User;
+use CreditManager\Repository\CreditRecordList;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
@@ -41,7 +42,7 @@ class CreditManager
         return $sum;
     }
 
-    public static function getUserHistory($user){
+    public static function getUserHistory($user, $limit = 100){
         if(is_object($user)) {
             $uId = $user->getUserID();
         } else {
@@ -50,7 +51,27 @@ class CreditManager
         $db = Database::connection();
         $em = $db->getEntityManager();
         $userRecords = $em->getRepository('CreditManager\Entity\CreditRecord')
-            ->findBy(array('uId' => $uId), ['timestamp'=>'desc']);
+            ->findBy(array('uId' => $uId), ['timestamp'=>'desc'], $limit);
         return $userRecords;
+    }
+
+    public static function getRecordCount($user){
+        if(is_object($user)) {
+            $uId = $user->getUserID();
+        } else {
+            $uId = $user;
+        }
+        $db = Database::connection();
+        $em = $db->getEntityManager();
+        $qb = $em->createQueryBuilder();
+
+        $qb->select($qb->expr()->count('cr'))
+            ->from('CreditManager\Entity\CreditRecord', 'cr')
+            ->where('cr.uId = ?1')
+            ->setParameter(1, $uId);
+
+        $query = $qb->getQuery();
+
+        return $query->getSingleScalarResult();
     }
 }
