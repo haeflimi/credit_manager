@@ -14,6 +14,7 @@ use UserInfo;
 use Group;
 use Page;
 use Site;
+use Config;
 
 class CreditManager extends DashboardPageController
 {
@@ -26,15 +27,25 @@ class CreditManager extends DashboardPageController
     public function view()
     {
         $ul = new CmUserList();
+
+        $relevant_groups = Config::get('credit_manager.relevant_groups');
+        $relevant_groups['all'] = 'Alle';
+        $this->set('relevant_groups', $relevant_groups);
+
         // only apply default filtering when not looking for someone specific
         if($keywords = $this->get('keywords')){
             $ul->filterByKeywords($keywords);
-        } else {
-            $ul->filterByGroup('TGC Members');
+        }
+        if(is_numeric($selectedGroup = $this->get('selectedGroup'))){
+            $ul->filterByGroupID((integer)$selectedGroup);
+        } elseif (empty($selectedGroup)) {
+            $ul->filterByGroupID(key($relevant_groups));
         }
         $ul->sortByUserName();
         $this->set('userList', $ul->getResults());
         $this->set('ul', $ul);
+
+
 
         $site = Site::getSite();
         $balance = $site->getAttribute('balance');

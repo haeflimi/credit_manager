@@ -19,5 +19,11 @@
         <page name="User Balance" path="/user-balance" filename="/user_balance.php" pagetype="" description="" package="credit_manager"
               global="true">
         </page>
+        <page name="Point of Sales" path="/pos" filename="/pos.php" pagetype="" description="" package="credit_manager"
+              global="true">
+        </page>
+        <page name="SlefService POS" path="/selfservice-pos" filename="/selfservice_pos.php" pagetype="" description="" package="credit_manager"
+              global="true">
+        </page>
     </singlepages>
 </concrete5-cif>

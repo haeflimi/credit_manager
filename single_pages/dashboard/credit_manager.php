@@ -2,9 +2,11 @@
 use CreditManager\CreditManager;
 $nh = Core::make('helper/navigation') ?>
 
+<?php if(!empty(Config::get('credit_manager.categories_topic'))):?>
 <div class="ccm-dashboard-header-buttons">
-    <a href="/mialdashboard/system/attributes/topics/view9" class="btn btn-primary">Tags Verwalten</a>
+    <a href="/dashboard/system/attributes/topics/view<?=Config::get('credit_manager.categories_topic')?>" class="btn btn-primary">Kategorie Tags Verwalten</a>
 </div>
+<?php endif; ?>
 
 <div class="ccm-dashboard-content">
 
@@ -26,6 +28,17 @@ $nh = Core::make('helper/navigation') ?>
                     <div class="ccm-search-main-lookup-field">
                         <i class="fa fa-search"></i>
                         <?php echo $form->search('keywords', array('placeholder' => t('Keywords')))?>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="ccm-search-fields-row">
+            <div class="form-group">
+                <?php echo $form->label('relevant_groups', t('Gruppenfilter'))?>
+                <div class="ccm-search-field-content">
+                    <div class="ccm-search-main-lookup-field">
+                        <i class="fa fa-search"></i>
+                        <?php echo $form->select('selectedGroup', $relevant_groups, $selectedGroup,['class' =>'form-control'])?>
                     </div>
                 </div>
             </div>
