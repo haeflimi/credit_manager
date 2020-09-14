@@ -48,15 +48,10 @@ class CreditRecord
     protected $categorie_tags;
 
     public function __construct($user, $value, $comment, $categories = []) {
-        $em = Database::get()->getEntityManager();
-        foreach($categories as $c){
-            $crc = new CreditRecordCategory($this->id, $categories);
-            $em->persist($crc);
-            $em->flush();
-        }
         $this->setUser($user);
         $this->setValue($value);
         $this->setComment($comment);
+        $this->addCategories($categories);
         $this->setTimestamp();
         return $this;
     }
@@ -114,6 +109,21 @@ class CreditRecord
         $em->persist($cr);
         $em->flush();
         return $cr;
+    }
+
+    public static function getById($id){
+        $db = Database::connection();
+        $em = $db->getEntityManager();
+        return $em->find('CreditManager\Entity\CreditRecord', $id);
+    }
+
+    public function addCategories($categories){
+        $em = Database::get()->getEntityManager();
+        foreach($categories as $c){
+            $crc = new CreditRecordCategory($this->id, $c);
+            $em->persist($crc);
+            $em->flush();
+        }
     }
 
     public function getCategories(){

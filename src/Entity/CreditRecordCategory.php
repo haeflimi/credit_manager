@@ -27,22 +27,14 @@ class CreditRecordCategory
      */
     protected $nodeId;
 
-    /**
-     * Any Credit Record can have any Topic Tag
-     * @ORM\ManyToOne(targetEntity="CreditRecord")
-     * @JoinColumn(name="crId", referencedColumnName="id")
-     */
-    protected $record;
-
-
     public function __construct($crId, $nodeId) {
         $this->crId = $crId;
         $this->nodeId = $nodeId;
         return $this;
     }
 
-    public function getRecord(){
-        return $this->record;
+    public function getCreditRecord(){
+        return CreditRecord::getById($this->crId);
     }
 
     public function getCategory(){
