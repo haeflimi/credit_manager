@@ -2,6 +2,10 @@
 use CreditManager\CreditManager;
 $nh = Core::make('helper/navigation') ?>
 
+<div class="ccm-dashboard-header-buttons">
+    <a href="/mialdashboard/system/attributes/topics/view9" class="btn btn-primary">Tags Verwalten</a>
+</div>
+
 <div class="ccm-dashboard-content">
 
     <?php if($errors):;?>

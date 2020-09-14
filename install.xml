@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<concrete5-cif version="1.0">
+    <trees>
+        <tree type="topic" name="Credit Manager Kategorien">
+            <category name="Zahlungsmethoden">
+                <topic name="Paypal"/>
+                <topic name="Bar"/>
+                <topic name="Überweisung"/>
+            </category>
+            <topic name="Self Service"/>
+            <topic name="Event Checkout"/>
+            <topic name="Event Checkin"/>
+        </tree>
+    </trees>
+    <singlepages>
+        <page name="Credit Manager Overview" path="/dashboard/credit-manager" filename="/dashboard/credit_manager.php" pagetype="" description="" package="credit_manager"
+              global="true">
+        </page>
+        <page name="User Balance" path="/user-balance" filename="/user_balance.php" pagetype="" description="" package="credit_manager"
+              global="true">
+        </page>
+    </singlepages>
+</concrete5-cif>
