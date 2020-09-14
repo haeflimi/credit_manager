@@ -3,8 +3,11 @@
 namespace Concrete\Package\CreditManager\Controller\Dialog;
 
 use Concrete\Core\Controller\Controller;
+use Concrete\Core\Tree\Type\Topic as TopicTree;
 use CreditManager\CreditManager;
 use CreditManager\Entity\CreditRecord;
+use Core;
+use Config;
 use URL;
 
 class AddRecord extends Controller
@@ -13,6 +16,11 @@ class AddRecord extends Controller
 
     public function view($uId)
     {
+        $this->requireAsset('core/topics');
+        $tt = new TopicTree();
+        $defaultTree = $tt->getDefault();
+        $tree = $tt->getByID(Core::make('helper/security')->sanitizeInt(Config::get('credit_manager.categories_topic')));
+        $this->set('categoryTree',$tree);
         $this->set('uId', $uId);
     }
 

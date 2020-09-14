@@ -16,6 +16,7 @@ use Group;
 use Page;
 use Site;
 use Config;
+use Core;
 
 class CreditManager extends DashboardPageController
 {
@@ -45,12 +46,6 @@ class CreditManager extends DashboardPageController
         $ul->sortByUserName();
         $this->set('userList', $ul->getResults());
         $this->set('ul', $ul);
-
-        $this->requireAsset('core/topics');
-        $tt = new TopicTree();
-        $defaultTree = $tt->getDefault();
-        $tree = $tt->getByID(Core::make('helper/security')->sanitizeInt(Config::get('credit_manager.categories_topic')));
-        $this->set('categoryTree',$tree);
 
         $site = Site::getSite();
         $balance = $site->getAttribute('balance');

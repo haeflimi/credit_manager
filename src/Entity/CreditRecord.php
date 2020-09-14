@@ -43,7 +43,7 @@ class CreditRecord
 
     /**
      * Any Credit Record can have any Topic Tag
-     * @ORM\ManyToMany(targetEntity="CategoryNode")
+     * @ORM\OneToMany(targetEntity="CreditManager\Entity\CreditRecordCategory", mappedBy="record")
      */
     protected $categorie_tags;
 
