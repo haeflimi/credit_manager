@@ -9,7 +9,8 @@ $fh = Core::make('helper/form');?>
         </div>
         <div class="form-group">
             <label for="category"><?= t('Category') ?></label>
-            <?php if (is_object($categoryTree)) :?>
+            <?php echo $fh->selectMultiple('selectedCategories', $categoryTreeNodes, [],['class'=>'form-control', 'styles'=>'padding: 0;']) ?>
+            <?php if (0 && is_object($categoryTree)) :?>
                 <div data-tree="<?=$categoryTree->getTreeID(); ?>"></div>
             <?php endif; ?>
         </div>
@@ -25,7 +26,7 @@ $fh = Core::make('helper/form');?>
         <button class="btn btn-danger pull-right"  onclick="jQuery.fn.dialog.closeTop()"><?=t('Cancel')?></button>
     </div>
 </div>
-<?php if($categoryTree): ?>
+<?php if(is_object($categoryTree)): ?>
 <script type="text/javascript">
     $(function() {
         $('select[name=topicTreeIDSelect]').on('change', function() {
@@ -33,8 +34,10 @@ $fh = Core::make('helper/form');?>
         });
 
         $('[data-tree]').concreteTree({
-            'treeID': '<?=$tree->getTreeID(); ?>'
+            'treeID': '<?=$categoryTree->getTreeID(); ?>'
         });
+
+        $("#selectedCategories").select2();
     });
 </script>
 <?php endif; ?>

@@ -29,7 +29,8 @@ class CreditManager extends DashboardPageController
     public function view()
     {
         $ul = new CmUserList();
-
+        $this->requireAsset('core/topics');
+        $this->requireAsset('select2');
         $relevant_groups = Config::get('credit_manager.relevant_groups');
         $relevant_groups['all'] = 'Alle';
         $this->set('relevant_groups', $relevant_groups);

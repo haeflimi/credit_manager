@@ -6,6 +6,7 @@ use Concrete\Core\Controller\Controller;
 use Concrete\Core\Tree\Type\Topic as TopicTree;
 use CreditManager\CreditManager;
 use CreditManager\Entity\CreditRecord;
+use Concrete\Core\Tree\Node\Type\Topic as TopicTreeNode;
 use Core;
 use Config;
 use URL;
@@ -17,10 +18,17 @@ class AddRecord extends Controller
     public function view($uId)
     {
         $this->requireAsset('core/topics');
+        $this->requireAsset('select2');
         $tt = new TopicTree();
-        $defaultTree = $tt->getDefault();
         $tree = $tt->getByID(Core::make('helper/security')->sanitizeInt(Config::get('credit_manager.categories_topic')));
         $this->set('categoryTree',$tree);
+        $nodeIds = $tree->getRootTreeNodeObject()->getAllChildNodeIDs();
+        $nodes = [];
+        foreach($nodeIds as $key => $nodeId){
+            $node = TopicTreeNode::getByID($nodeId);
+            $nodes[$nodeId] = $node->getTreeNodeDisplayName();
+        }
+        $this->set('categoryTreeNodes', $nodes);
         $this->set('uId', $uId);
     }
 
