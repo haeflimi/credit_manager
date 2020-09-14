@@ -16,7 +16,6 @@ class Controller extends BlockController
     protected $btCacheBlockOutput = false;
     protected $btCacheBlockOutputOnPost = false;
     protected $btCacheBlockOutputForRegisteredUsers = false;
-    protected $btCacheBlockOutputLifetime = CACHE_LIFETIME;
     protected $pkgHandle = 'credit_manager';
 
     protected $limit = 10;

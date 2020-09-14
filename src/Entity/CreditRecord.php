@@ -41,7 +41,14 @@ class CreditRecord
      */
     protected $value;
 
+    /**
+     * Any Credit Record can have any Topic Tag
+     * @ManyToMany(targetEntity="Concrete\Core\Tree\Node")
+     */
+    protected $categorie_tags;
+
     public function __construct($user, $value, $comment) {
+        $this->categorie_tags = new ArrayCollection();
         $this->setUser($user);
         $this->setValue($value);
         $this->setComment($comment);
