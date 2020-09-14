@@ -1,6 +1,7 @@
 <?php
 namespace Concrete\Package\CreditManager;
 
+use Concrete\Core\Backup\ContentImporter;
 use Concrete\Core\Database\EntityManager\Provider\ProviderAggregateInterface;
 use Concrete\Core\Database\EntityManager\Provider\StandardPackageProvider;
 use Concrete\Core\View\View;
@@ -19,7 +20,7 @@ class Controller extends Package implements ProviderAggregateInterface
 {
     protected $pkgHandle = 'credit_manager';
     protected $appVersionRequired = '8.4';
-    protected $pkgVersion = '1.4';
+    protected $pkgVersion = '1.4.4';
     protected $pkgAutoloaderRegistries = array(
         'src/PaymentMethods' => '\CreditManager\PaymentMethods',
         'src/Entity' => '\CreditManager\Entity',
@@ -96,15 +97,8 @@ class Controller extends Package implements ProviderAggregateInterface
         // Install Database Entities
         $this->installEntitiesDatabase();
 
-        // Add Blocks
-        BlockType::installBlockType('credit_balance', $pkg);
-        BlockType::installBlockType('credit_history', $pkg);
-
-        // Add Single Pages
-        $sp  = SinglePage::add('/dashboard/credit_manager', $pkg);
-        $sp->update(array('cName' => t('Credit Manager'), 'cDescription' => 'Manage Credit Manager Balances and Transactions.'));
-        $sp  = SinglePage::add('/user_balance', $pkg);
-        $sp->update(array('cName' => t('User Balance'), 'cDescription' => 'Show User\'s Balance and allow for evening out the balance and transfer founds.'));
+        $ci = new ContentImporter();
+        $ci->importContentFile($pkg->getPackagePath() . '/install.xml');
 
         // Set Groups and Permissions
         $this->setGroupsAndPermissions($pkg);

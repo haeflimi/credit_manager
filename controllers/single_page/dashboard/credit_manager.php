@@ -2,6 +2,7 @@
 namespace Concrete\Package\CreditManager\Controller\SinglePage\Dashboard;
 
 use Concrete\Core\Page\Controller\DashboardPageController;
+use Concrete\Core\Tree\Type\Topic as TopicTree;
 use Concrete\Core\User\UserList;
 use Concrete\Core\User\EditResponse as UserEditResponse;
 use CreditManager\Repository\CmUserList;
@@ -45,7 +46,11 @@ class CreditManager extends DashboardPageController
         $this->set('userList', $ul->getResults());
         $this->set('ul', $ul);
 
-
+        $this->requireAsset('core/topics');
+        $tt = new TopicTree();
+        $defaultTree = $tt->getDefault();
+        $tree = $tt->getByID(Core::make('helper/security')->sanitizeInt(Config::get('credit_manager.categories_topic')));
+        $this->set('categoryTree',$tree);
 
         $site = Site::getSite();
         $balance = $site->getAttribute('balance');

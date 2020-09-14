@@ -36,8 +36,7 @@ $nh = Core::make('helper/navigation') ?>
             <div class="form-group">
                 <?php echo $form->label('relevant_groups', t('Gruppenfilter'))?>
                 <div class="ccm-search-field-content">
-                    <div class="ccm-search-main-lookup-field">
-                        <i class="fa fa-search"></i>
+                    <div class="ccm-filter-group">
                         <?php echo $form->select('selectedGroup', $relevant_groups, $selectedGroup,['class' =>'form-control'])?>
                     </div>
                 </div>

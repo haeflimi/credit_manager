@@ -26,4 +26,8 @@
               global="true">
         </page>
     </singlepages>
+    <blocktypes>
+        <blocktype handle="credit_balance" package="credit_manager"/>
+        <blocktype handle="credit_history" package="credit_manager"/>
+    </blocktypes>
 </concrete5-cif>

@@ -43,7 +43,7 @@ class CreditRecord
 
     /**
      * Any Credit Record can have any Topic Tag
-     * @ManyToMany(targetEntity="Concrete\Core\Tree\Node")
+     * @ORM\ManyToMany(targetEntity="CategoryNode")
      */
     protected $categorie_tags;
 
@@ -109,5 +109,9 @@ class CreditRecord
         $em->persist($cr);
         $em->flush();
         return $cr;
+    }
+
+    public function getCategories(){
+        return $this->categorie_tags;
     }
 }
