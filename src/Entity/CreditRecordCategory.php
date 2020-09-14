@@ -35,7 +35,9 @@ class CreditRecordCategory
     protected $record;
 
 
-    public function __construct() {
+    public function __construct($crId, $nodeId) {
+        $this->crId = $crId;
+        $this->nodeId = $nodeId;
         return $this;
     }
 

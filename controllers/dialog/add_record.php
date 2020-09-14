@@ -38,7 +38,7 @@ class AddRecord extends Controller
             $value = $this->post('recordValue');
             $comment = $this->post('recordComment');
             $user = $this->post('recordUid');
-            CreditRecord::addRecord($user, $value,$comment);
+            $cr = CreditRecord::addRecord($user, $value,$comment);
             $this->flash('success', t('Record Added'));
         } else {
             $this->flash('error', $e);

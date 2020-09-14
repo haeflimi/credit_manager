@@ -9,7 +9,7 @@ $fh = Core::make('helper/form');?>
         </div>
         <div class="form-group">
             <label for="category"><?= t('Category') ?></label>
-            <?php echo $fh->selectMultiple('selectedCategories', $categoryTreeNodes, [],['class'=>'form-control', 'styles'=>'padding: 0;']) ?>
+            <?php echo $fh->selectMultiple('selectedCategories', $categoryTreeNodes, [],['style'=>'padding: 0;']) ?>
             <?php if (0 && is_object($categoryTree)) :?>
                 <div data-tree="<?=$categoryTree->getTreeID(); ?>"></div>
             <?php endif; ?>

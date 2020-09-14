@@ -47,8 +47,13 @@ class CreditRecord
      */
     protected $categorie_tags;
 
-    public function __construct($user, $value, $comment) {
-        $this->categorie_tags = new ArrayCollection();
+    public function __construct($user, $value, $comment, $categories = []) {
+        $em = Database::get()->getEntityManager();
+        foreach($categories as $c){
+            $crc = new CreditRecordCategory($this->id, $categories);
+            $em->persist($crc);
+            $em->flush();
+        }
         $this->setUser($user);
         $this->setValue($value);
         $this->setComment($comment);
@@ -102,10 +107,10 @@ class CreditRecord
         return $this->value = $value;
     }
 
-    public static function addRecord($user, $value, $comment){
+    public static function addRecord($user, $value, $comment, $categories = []){
         $db = Database::connection();
         $em = $db->getEntityManager();
-        $cr = new CreditRecord($user, $value, $comment);
+        $cr = new CreditRecord($user, $value, $comment, $categories = []);
         $em->persist($cr);
         $em->flush();
         return $cr;
