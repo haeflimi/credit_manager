@@ -17,11 +17,11 @@
               pagetype=""
               description="" package="credit_manager">
         </page>
-        <page name="Point of Sales" path="/cm-tools/pos" filename="pos.php"
+        <page name="Point of Sales" path="/tools/pos" filename="pos.php"
               pagetype="" patetemplate="blank"
               description="" package="credit_manager">
         </page>
-        <page name="SlefService POS" path="/cm-tools/self-service-pos" filename="self_service_pos.php"
+        <page name="SlefService POS" path="/tools/self-service-pos" filename="self_service_pos.php"
               pagetype="" pagetemplate="blank"
               description="" package="credit_manager">
         </page>
