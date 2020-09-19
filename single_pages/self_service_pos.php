@@ -71,7 +71,7 @@ $this->inc('elements/header_top.php');  ?>
                     </h4>
                     <div class="card-body" v-if="!active_user">
                         <div class="form-group">
-                            <input type="text" tabindex="1" ref="badgeInput" class="form-control" name="badgeInput" id="badgeInput" placeholder="Scan your Badge!" v-on:keyup.13="activateUser">
+                            <input type="text" tabindex="1" ref="badgeInput" class="form-control" v-model="badge_id" placeholder="Scan your Badge!" v-on:keyup.13="activateUser">
                         </div>
                     </div>
                     <div class="card-body" v-if="active_user">
@@ -124,6 +124,7 @@ $this->inc('elements/header_top.php');  ?>
     var PointOfSales = new Vue({
         el: '#comp-pos',
         data: {
+            badge_id: '',
             is_processing: false,
             active_alert: null,
             users: <?=$users?>,
@@ -173,7 +174,11 @@ $this->inc('elements/header_top.php');  ?>
                     var badge_id = event.target.value;
                 }
                 var user = this.users.find(user => user.badge_id === badge_id);
-                this.active_user = user;
+                if(user){
+                    this.active_user = user;
+                } else {
+                    this.alertError('Kein Benutzer mit dieser Badge Id')
+                }
             },
             setFocus: function(){
                 if(this.$refs.badgeInput){
@@ -184,22 +189,21 @@ $this->inc('elements/header_top.php');  ?>
                 this.selected_products.splice(0, this.selected_products.length);
                 this.active_user = null;
                 this.active_alert = null;
+                this.badge_id = '';
+                this.is_processing = false;
                 this.setFocus();
             },
             alertSuccess: function(message) {
                 this.active_lert = 'success';
-
+                setTimeout(function(){
+                    PointOfSales.reset();
+                }, 500);
             },
             alertError : function(message) {
-                console.log(message);
-                var text = 'Etwas ist schief gelaufen.'
-                new PNotify({
-                    type: 'error',
-                    icon: 'fa fa-close',
-                    title: 'Error',
-                    text: text,
-                    hide: true,
-                });
+                this.active_alert = 'error';
+                setTimeout(function(){
+                    PointOfSales.reset();
+                }, 500);
             },
             confirm : function () {
                 var order = {

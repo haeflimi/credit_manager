@@ -77,7 +77,7 @@ $this->inc('elements/header_top.php');  ?>
                             </select>
                         </div>
                         <div class="form-group">
-                            <input type="text" tabindex="1" ref="badgeInput" class="form-control" name="badgeInput" id="badgeInput" placeholder="Badge ID" v-on:keyup.13="activateUser">
+                            <input type="text" tabindex="1" ref="badgeInput" class="form-control" v-model="badge_id" placeholder="Badge ID" v-on:keyup.13="activateUser">
                         </div>
                     </div>
                     <div class="card-body" v-if="active_user">
@@ -130,6 +130,7 @@ $this->inc('elements/header_top.php');  ?>
     var PointOfSales = new Vue({
         el: '#comp-pos',
         data: {
+            badge_id: '',
             is_processing: false,
             active_alert: null,
             users: <?=$users?>,
@@ -194,6 +195,7 @@ $this->inc('elements/header_top.php');  ?>
                 this.selected_products.splice(0, this.selected_products.length);
                 this.active_user = null;
                 this.active_alert = null;
+                this.badge_id = '';
                 this.is_processing = false;
                 this.setFocus();
             },
