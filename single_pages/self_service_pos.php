@@ -194,16 +194,16 @@ $this->inc('elements/header_top.php');  ?>
                 this.setFocus();
             },
             alertSuccess: function(message) {
-                this.active_lert = 'success';
+                this.active_alert = 'success';
                 setTimeout(function(){
                     PointOfSales.reset();
-                }, 500);
+                }, 1000);
             },
             alertError : function(message) {
                 this.active_alert = 'error';
                 setTimeout(function(){
                     PointOfSales.reset();
-                }, 500);
+                }, 1000);
             },
             confirm : function () {
                 var order = {
