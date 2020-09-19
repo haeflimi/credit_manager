@@ -8,7 +8,7 @@ $this->inc('elements/header_top.php');  ?>
 <section id="comp-pos" class="container-fluid">
     <header>
         <h1>
-            Point of Sales
+            Self Service
         </h1>
     </header>
     <main>
@@ -71,13 +71,7 @@ $this->inc('elements/header_top.php');  ?>
                     </h4>
                     <div class="card-body" v-if="!active_user">
                         <div class="form-group">
-                            <select class="form-control block" v-on:change="activateUser">
-                                <option>Auswählen oder Badge Scannen</option>
-                                <option v-for="user in users" :key="user.id" :value="user.badge_id">{{user.name}}</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <input type="text" tabindex="1" ref="badgeInput" class="form-control" name="badgeInput" id="badgeInput" placeholder="Badge ID" v-on:keyup.13="activateUser">
+                            <input type="text" tabindex="1" ref="badgeInput" class="form-control" name="badgeInput" id="badgeInput" placeholder="Scan your Badge!" v-on:keyup.13="activateUser">
                         </div>
                     </div>
                     <div class="card-body" v-if="active_user">
@@ -123,10 +117,10 @@ $this->inc('elements/header_top.php');  ?>
     </div>
 </section>
 <script>
-    /*$(document).click(function(event) {
+    $(document).click(function(event) {
         var $target = $(event.target);
         PointOfSales.setFocus();
-    });*/
+    });
     var PointOfSales = new Vue({
         el: '#comp-pos',
         data: {
@@ -179,11 +173,7 @@ $this->inc('elements/header_top.php');  ?>
                     var badge_id = event.target.value;
                 }
                 var user = this.users.find(user => user.badge_id === badge_id);
-                if(user){
-                    this.active_user = user;
-                } else {
-                    this.alertError('Kein Benutzer mit dieser Badge Id')
-                }
+                this.active_user = user;
             },
             setFocus: function(){
                 if(this.$refs.badgeInput){
@@ -194,24 +184,20 @@ $this->inc('elements/header_top.php');  ?>
                 this.selected_products.splice(0, this.selected_products.length);
                 this.active_user = null;
                 this.active_alert = null;
-                this.is_processing = false;
                 this.setFocus();
             },
             alertSuccess: function(message) {
-                new PNotify({
-                    type: 'success',
-                    icon: 'fa fa-thumbs-up',
-                    title: 'Erfolgreich',
-                    text: message,
-                    hide: true,
-                });
+                this.active_lert = 'success';
+
             },
             alertError : function(message) {
+                console.log(message);
+                var text = 'Etwas ist schief gelaufen.'
                 new PNotify({
                     type: 'error',
                     icon: 'fa fa-close',
-                    title: 'Fehler',
-                    text: message,
+                    title: 'Error',
+                    text: text,
                     hide: true,
                 });
             },

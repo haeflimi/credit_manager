@@ -13,21 +13,24 @@
         </tree>
     </trees>
     <singlepages>
-        <page name="Credit Manager Overview" path="/dashboard/credit-manager" filename="/dashboard/credit_manager.php" pagetype="" description="" package="credit_manager"
-              global="true">
+        <page name="Credit Manager Overview" path="/dashboard/credit-manager" filename="/dashboard/credit_manager.php"
+              pagetype=""
+              description="" package="credit_manager">
         </page>
-        <page name="User Balance" path="/user-balance" filename="/user_balance.php" pagetype="" description="" package="credit_manager"
-              global="true">
+        <page name="Point of Sales" path="/cm-tools/pos" filename="pos.php"
+              pagetype="" patetemplate="blank"
+              description="" package="credit_manager">
         </page>
-        <page name="Point of Sales" path="/pos" filename="/pos.php" pagetype="" description="" package="credit_manager"
-              global="true">
-        </page>
-        <page name="SlefService POS" path="/selfservice-pos" filename="/selfservice_pos.php" pagetype="" description="" package="credit_manager"
-              global="true">
+        <page name="SlefService POS" path="/cm-tools/self-service-pos" filename="self_service_pos.php"
+              pagetype="" pagetemplate="blank"
+              description="" package="credit_manager">
         </page>
     </singlepages>
     <blocktypes>
         <blocktype handle="credit_balance" package="credit_manager"/>
         <blocktype handle="credit_history" package="credit_manager"/>
     </blocktypes>
+    <attributekeys>
+        <attributekey handle="badge_id" name="Badge Id" package="credit_manager" type="text" category="user"/>
+    </attributekeys>
 </concrete5-cif>
