@@ -33,4 +33,81 @@
     <attributekeys>
         <attributekey handle="badge_id" name="Badge Id" package="credit_manager" type="text" category="user"/>
     </attributekeys>
+    <expressentities>
+        <entity id="872f6db7-fb67-11ea-9b89-0cc47adb80d6" handle="product_category" plural_handle="Produktkategorien" name="Produktkategorie" supports_custom_display_order="" include_in_public_list="1" description="" default_view_form="872f72f9-fb67-11ea-9b89-0cc47adb80d6" default_edit_form="872f72f9-fb67-11ea-9b89-0cc47adb80d6" results-folder="/">
+            <attributekeys>
+                <attributekey handle="product_category_name" name="Kategoriename" package="" searchable="1" indexed="1" type="text" category="">
+                    <type placeholder=""/>
+                </attributekey>
+                <attributekey handle="product_category_details" name="Produktkategorie Details" package="" searchable="1" indexed="1" type="textarea" category="">
+                    <type mode="text"/>
+                </attributekey>
+            </attributekeys>
+            <associations>
+                <association type="many_to_many" id="7563a9e2-fb68-11ea-9b89-0cc47adb80d6" source-entity="872f6db7-fb67-11ea-9b89-0cc47adb80d6" target-entity="c6f0584f-faa4-11e9-a17f-002590d8ee26" target-property-name="Produkte" inversed-by-property-name="Produktkategorien" is-owned="" is-owner=""/>
+            </associations>
+            <forms>
+                <form id="872f72f9-fb67-11ea-9b89-0cc47adb80d6" name="Form">
+                    <fieldsets>
+                        <fieldset title="" description="">
+                            <controls>
+                                <control id="6a13548d-fb6b-11ea-9b89-0cc47adb80d6" type="attribute_key" required="" custom-label="">
+                                    <attributekey handle="product_category_name"/>
+                                </control>
+                                <control id="6f1ff4f3-fb6b-11ea-9b89-0cc47adb80d6" type="attribute_key" required="" custom-label="">
+                                    <attributekey handle="product_category_details"/>
+                                </control>
+                            </controls>
+                        </fieldset>
+                    </fieldsets>
+                </form>
+            </forms>
+        </entity>
+        <entity id="c6f0584f-faa4-11e9-a17f-002590d8ee26" handle="product" plural_handle="Produkte" name="Produkt" supports_custom_display_order="" include_in_public_list="1" description="" default_view_form="c6f05ed0-faa4-11e9-a17f-002590d8ee26" default_edit_form="c6f05ed0-faa4-11e9-a17f-002590d8ee26" results-folder="/">
+            <attributekeys>
+                <attributekey handle="product_name" name="Produktname" package="" searchable="1" indexed="1" type="text" category="">
+                    <type placeholder=""/>
+                </attributekey>
+                <attributekey handle="product_price" name="Produktpreis" package="" searchable="" indexed="" type="number" category=""/>
+                <attributekey handle="product_image" name="Produktbild" package="" searchable="" indexed="" type="image_file" category="">
+                    <type mode="file_manager"/>
+                </attributekey>
+                <attributekey handle="is_order" name="Ist ein Bestellprodukt" package="" searchable="1" indexed="1" type="boolean" category="">
+                    <type checked="" checkbox-label=""/>
+                </attributekey>
+                <attributekey handle="is_self_service" name="Ist Self-Service Produkt" package="" searchable="1" indexed="1" type="boolean" category="">
+                    <type checked="" checkbox-label=""/>
+                </attributekey>
+            </attributekeys>
+            <associations>
+                <association type="many_to_many" id="7563adaa-fb68-11ea-9b89-0cc47adb80d6" source-entity="c6f0584f-faa4-11e9-a17f-002590d8ee26" target-entity="872f6db7-fb67-11ea-9b89-0cc47adb80d6" target-property-name="Produktkategorien" inversed-by-property-name="Produkte" is-owned="" is-owner=""/>
+            </associations>
+            <forms>
+                <form id="c6f05ed0-faa4-11e9-a17f-002590d8ee26" name="Form">
+                    <fieldsets>
+                        <fieldset title="Produktinfos" description="">
+                            <controls>
+                                <control id="f6ec6713-faa4-11e9-a17f-002590d8ee26" type="attribute_key" required="" custom-label="">
+                                    <attributekey handle="product_name"/>
+                                </control>
+                                <control id="f903c66f-faa4-11e9-a17f-002590d8ee26" type="attribute_key" required="" custom-label="">
+                                    <attributekey handle="product_price"/>
+                                </control>
+                                <control id="fb2377ed-faa4-11e9-a17f-002590d8ee26" type="attribute_key" required="" custom-label="">
+                                    <attributekey handle="product_image"/>
+                                </control>
+                                <control id="b964bdca-fb69-11ea-9b89-0cc47adb80d6" type="attribute_key" required="" custom-label="">
+                                    <attributekey handle="is_order"/>
+                                </control>
+                                <control id="bfd26310-fb69-11ea-9b89-0cc47adb80d6" type="attribute_key" required="" custom-label="">
+                                    <attributekey handle="is_self_service"/>
+                                </control>
+                                <control id="c7715426-fb69-11ea-9b89-0cc47adb80d6" type="association" required="" custom-label="" association="7563adaa-fb68-11ea-9b89-0cc47adb80d6" label-mask=""/>
+                            </controls>
+                        </fieldset>
+                    </fieldsets>
+                </form>
+            </forms>
+        </entity>
+    </expressentities>
 </concrete5-cif>
