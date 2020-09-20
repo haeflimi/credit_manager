@@ -47,7 +47,10 @@ class CreditRecordCategory
 
     public function getCategoryName(){
         $t = TopicTreeNode::getById($this->nodeId);
-        return $t->getTreeNodeDisplayName();
+        if(is_object($t)){
+            return $t->getTreeNodeDisplayName();
+        }
+        return '';
     }
 
     public function setRecord(CreditRecord $cr){

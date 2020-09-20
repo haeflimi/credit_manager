@@ -2,6 +2,7 @@
 namespace CreditManager\Entity;
 
 use Concrete\Core\Support\Facade\Database;
+use Concrete\Core\Tree\Node\Type\Topic as TopicTreeNode;
 use Doctrine\ORM\Mapping as ORM;
 use CreditManager\Repository\CreditRecordList;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -112,7 +113,13 @@ class CreditRecord
         return $em->find('CreditManager\Entity\CreditRecord', $id);
     }
 
-    public function addCategory($nodeId){
+    public function addCategory($cat){
+        if(is_numeric($cat)){
+            $nodeId = $cat;
+        } else {
+            $t = TopicTreeNode::getNodeByName($cat);
+            $nodeId = $t->treeNodeID;
+        }
         $em = Database::connection()->getEntityManager();
         $crc = new CreditRecordCategory($this->getId(), $nodeId);
         $em->persist($crc);
@@ -128,6 +135,7 @@ class CreditRecord
     }
 
     public function getCategories(){
-        return $this->categorie_tags;
+        $em = Database::connection()->getEntityManager();
+        return $em->getRepository('CreditManager\Entity\CreditRecordCategory')->findBy(['crId'=>$this->getId()]);
     }
 }

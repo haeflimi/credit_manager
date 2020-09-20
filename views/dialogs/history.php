@@ -16,7 +16,7 @@ $fh = Core::make('helper/form');?>
                     <td><?=$record->getTimestamp()->format('d.m.Y H:i')?></td>
                     <td><?=$record->getComment()?></td>
                     <td><?php foreach($record->getCategories() as $crc){
-                        echo '<span class="badge">'.$crc->getCategoryName().'</span>';
+                            echo '<span class="badge pr-2">'.$crc->getCategoryName().'</span>';
                         }?></td>
                     <td><?=$record->getValue()?></td>
                 </tr>

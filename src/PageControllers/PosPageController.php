@@ -93,11 +93,15 @@ class PosPageController extends PageController
         }
         $message = $itemCount.' Produkte gekauft: ('.implode(' ,', $itemNames).')';
         try {
-            $cr = CreditRecord::addRecord($user, -$totalPrice, $message);
+            $cr = CreditManager::addRecord($user, -$totalPrice, $message, [$this->getCmCategory()]);
         } catch (Exception $e) {
             return new Response("Failed: " . $e->getMessage(), 500);
         }
 
         return new Response('Transaktion Erfolgreich');
+    }
+
+    public function getCmCategory(){
+        return '';
     }
 }
