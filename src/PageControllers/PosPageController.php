@@ -92,8 +92,9 @@ class PosPageController extends PageController
             $itemNames[] = $product->getProductName();
         }
         $message = $itemCount.' Produkte gekauft: ('.implode(' ,', $itemNames).')';
+        $lanName = CurrentLan::getLANTitle();
         try {
-            $cr = CreditManager::addRecord($user, -$totalPrice, $message, [$this->getCmCategory()]);
+            $cr = CreditManager::addRecord($user, -$totalPrice, $message, [$this->getCmCategory(),$lanName]);
         } catch (Exception $e) {
             return new Response("Failed: " . $e->getMessage(), 500);
         }
