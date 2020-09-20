@@ -36,10 +36,10 @@
     <expressentities>
         <entity id="872f6db7-fb67-11ea-9b89-0cc47adb80d6" handle="product_category" plural_handle="Produktkategorien" name="Produktkategorie" supports_custom_display_order="" include_in_public_list="1" description="" default_view_form="872f72f9-fb67-11ea-9b89-0cc47adb80d6" default_edit_form="872f72f9-fb67-11ea-9b89-0cc47adb80d6" results-folder="/">
             <attributekeys>
-                <attributekey handle="product_category_name" name="Kategoriename" package="" searchable="1" indexed="1" type="text" category="">
+                <attributekey handle="product_category_name" name="Kategoriename" package="credit_manager" searchable="1" indexed="1" type="text" category="">
                     <type placeholder=""/>
                 </attributekey>
-                <attributekey handle="product_category_details" name="Produktkategorie Details" package="" searchable="1" indexed="1" type="textarea" category="">
+                <attributekey handle="product_category_details" name="Produktkategorie Details" package="credit_manager" searchable="1" indexed="1" type="textarea" category="">
                     <type mode="text"/>
                 </attributekey>
             </attributekeys>
@@ -65,17 +65,17 @@
         </entity>
         <entity id="c6f0584f-faa4-11e9-a17f-002590d8ee26" handle="product" plural_handle="Produkte" name="Produkt" supports_custom_display_order="" include_in_public_list="1" description="" default_view_form="c6f05ed0-faa4-11e9-a17f-002590d8ee26" default_edit_form="c6f05ed0-faa4-11e9-a17f-002590d8ee26" results-folder="/">
             <attributekeys>
-                <attributekey handle="product_name" name="Produktname" package="" searchable="1" indexed="1" type="text" category="">
+                <attributekey handle="product_name" name="Produktname" package="credit_manager" searchable="1" indexed="1" type="text" category="">
                     <type placeholder=""/>
                 </attributekey>
-                <attributekey handle="product_price" name="Produktpreis" package="" searchable="" indexed="" type="number" category=""/>
-                <attributekey handle="product_image" name="Produktbild" package="" searchable="" indexed="" type="image_file" category="">
+                <attributekey handle="product_price" name="Produktpreis" package="credit_manager" searchable="" indexed="" type="number" category=""/>
+                <attributekey handle="product_image" name="Produktbild" package="credit_manager" searchable="" indexed="" type="image_file" category="">
                     <type mode="file_manager"/>
                 </attributekey>
-                <attributekey handle="is_order" name="Ist ein Bestellprodukt" package="" searchable="1" indexed="1" type="boolean" category="">
+                <attributekey handle="is_order" name="Ist ein Bestellprodukt" package="credit_manager" searchable="1" indexed="1" type="boolean" category="">
                     <type checked="" checkbox-label=""/>
                 </attributekey>
-                <attributekey handle="is_self_service" name="Ist Self-Service Produkt" package="" searchable="1" indexed="1" type="boolean" category="">
+                <attributekey handle="is_self_service" name="Ist Self-Service Produkt" package="credit_manager" searchable="1" indexed="1" type="boolean" category="">
                     <type checked="" checkbox-label=""/>
                 </attributekey>
             </attributekeys>
