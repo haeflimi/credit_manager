@@ -5,7 +5,6 @@ namespace Concrete\Package\CreditManager\Controller\Dialog;
 use Concrete\Core\Controller\Controller;
 use Concrete\Core\Tree\Type\Topic as TopicTree;
 use CreditManager\CreditManager;
-use CreditManager\Entity\CreditRecord;
 use Concrete\Core\Tree\Node\Type\Topic as TopicTreeNode;
 use Core;
 use Config;
@@ -37,8 +36,9 @@ class AddRecord extends Controller
         if($e === true){
             $value = $this->post('recordValue');
             $comment = $this->post('recordComment');
+            $categories = $this->post('selectedCategories');
             $user = $this->post('recordUid');
-            $cr = CreditRecord::addRecord($user, $value,$comment);
+            CreditManager::addRecord($user,$value,$comment,$categories);
             $this->flash('success', t('Record Added'));
         } else {
             $this->flash('error', $e);

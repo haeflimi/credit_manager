@@ -3,6 +3,7 @@ namespace CreditManager;
 
 use Concrete\Core\Support\Facade\Database;
 use Concrete\Core\User\User;
+use CreditManager\Entity\CreditRecord;
 use CreditManager\Repository\CreditRecordList;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
@@ -73,5 +74,14 @@ class CreditManager
         $query = $qb->getQuery();
 
         return $query->getSingleScalarResult();
+    }
+
+    public static function addRecord($user, $value, $comment, $categories = []){
+        $em = Database::connection()->getEntityManager();
+        $cr = new CreditRecord($user, $value, $comment);
+        $em->persist($cr);
+        $em->flush();
+        $cr->addCategories($categories);
+        return $cr;
     }
 }

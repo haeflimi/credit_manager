@@ -29,16 +29,32 @@ class CreditRecordCategory
 
     public function __construct($crId, $nodeId) {
         $this->crId = $crId;
-        $this->nodeId = $nodeId;
+        $this->nodeId = (integer)$nodeId;
         return $this;
+    }
+
+    public function getCreditRecordId(){
+        return $this->crId;
     }
 
     public function getCreditRecord(){
         return CreditRecord::getById($this->crId);
     }
 
-    public function getCategory(){
+    public function getCategoryId(){
+        return $this->nodeId;
+    }
+
+    public function getCategoryName(){
         $t = TopicTreeNode::getById($this->nodeId);
         return $t->getTreeNodeDisplayName();
+    }
+
+    public function setRecord(CreditRecord $cr){
+        $this->crId = $cr->getId();
+    }
+
+    public function setCategory($nodeId){
+        $this->nodeId = $nodeId;
     }
 }

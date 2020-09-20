@@ -4,6 +4,7 @@ namespace CreditManager\Entity;
 use Concrete\Core\Support\Facade\Database;
 use Doctrine\ORM\Mapping as ORM;
 use CreditManager\Repository\CreditRecordList;
+use Doctrine\Common\Collections\ArrayCollection;
 use User;
 use Page;
 
@@ -43,15 +44,19 @@ class CreditRecord
 
     /**
      * Any Credit Record can have any Topic Tag
-     * @ORM\OneToMany(targetEntity="CreditManager\Entity\CreditRecordCategory", mappedBy="record")
+     * @ManyToMany(targetEntity="CreditManager\Entity\CreditRecordCategory")
+     * @JoinTable(name="cmCreditRecordCategory",
+     *      joinColumns={@JoinColumn(name="Id", referencedColumnName="crId")},
+     *      inverseJoinColumns={@JoinColumn(name="crId", referencedColumnName="Id", unique=true)}
+     *      )
      */
     protected $categorie_tags;
 
-    public function __construct($user, $value, $comment, $categories = []) {
+    public function __construct($user, $value, $comment) {
+        $this->categorie_tags  = new ArrayCollection();
         $this->setUser($user);
         $this->setValue($value);
         $this->setComment($comment);
-        $this->addCategories($categories);
         $this->setTimestamp();
         return $this;
     }
@@ -102,28 +107,24 @@ class CreditRecord
         return $this->value = $value;
     }
 
-    public static function addRecord($user, $value, $comment, $categories = []){
-        $db = Database::connection();
-        $em = $db->getEntityManager();
-        $cr = new CreditRecord($user, $value, $comment, $categories = []);
-        $em->persist($cr);
-        $em->flush();
-        return $cr;
-    }
-
     public static function getById($id){
-        $db = Database::connection();
-        $em = $db->getEntityManager();
+        $em = Database::connection()->getEntityManager();
         return $em->find('CreditManager\Entity\CreditRecord', $id);
     }
 
+    public function addCategory($nodeId){
+        $em = Database::connection()->getEntityManager();
+        $crc = new CreditRecordCategory($this->getId(), $nodeId);
+        $em->persist($crc);
+        $em->flush();
+        return $this;
+    }
+
     public function addCategories($categories){
-        $em = Database::get()->getEntityManager();
-        foreach($categories as $c){
-            $crc = new CreditRecordCategory($this->id, $c);
-            $em->persist($crc);
-            $em->flush();
+        foreach($categories as $nodeId){
+            $this->addCategory($nodeId);
         }
+        return $this;
     }
 
     public function getCategories(){

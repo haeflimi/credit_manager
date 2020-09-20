@@ -6,6 +6,7 @@ $fh = Core::make('helper/form');?>
             <tr>
                 <th><a><?=t('Date/ Time')?></a></th>
                 <th><a><?=t('Comment')?></a></th>
+                <th><a><?=t('Kategorien')?></a></th>
                 <th><a><?=t('Value')?></a></th>
             </tr>
         </thead>
@@ -14,6 +15,9 @@ $fh = Core::make('helper/form');?>
                 <tr>
                     <td><?=$record->getTimestamp()->format('d.m.Y H:i')?></td>
                     <td><?=$record->getComment()?></td>
+                    <td><?php foreach($record->getCategories() as $crc){
+                        echo '<span class="badge">'.$crc->getCategoryName().'</span>';
+                        }?></td>
                     <td><?=$record->getValue()?></td>
                 </tr>
             <?php endforeach;?>
