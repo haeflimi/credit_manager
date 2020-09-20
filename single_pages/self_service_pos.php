@@ -178,6 +178,7 @@ $this->inc('elements/header_top.php');  ?>
                     this.active_user = user;
                 } else {
                     this.alertError('Kein Benutzer mit dieser Badge Id')
+                    this.reset();
                 }
             },
             setFocus: function(){
@@ -193,17 +194,29 @@ $this->inc('elements/header_top.php');  ?>
                 this.is_processing = false;
                 this.setFocus();
             },
-            alertSuccess: function(message) {
-                this.active_alert = 'success';
+            flashFullScreenAlert(type) {
+                this.active_alert = type;
                 setTimeout(function(){
                     PointOfSales.reset();
                 }, 1000);
             },
+            alertSuccess: function(message) {
+                new PNotify({
+                    type: 'success',
+                    icon: 'fa fa-thumbs-up',
+                    title: 'Erfolgreich',
+                    text: message,
+                    hide: true,
+                });
+            },
             alertError : function(message) {
-                this.active_alert = 'error';
-                setTimeout(function(){
-                    PointOfSales.reset();
-                }, 1000);
+                new PNotify({
+                    type: 'error',
+                    icon: 'fa fa-close',
+                    title: 'Fehler',
+                    text: message,
+                    hide: true,
+                });
             },
             confirm : function () {
                 var order = {
@@ -213,12 +226,9 @@ $this->inc('elements/header_top.php');  ?>
                 }
                 this.is_processing = true;
                 $.post("<?=$orderAction?>", {order,ccm_token: this.ccm_token}, function (response) {
-                    PointOfSales.alertSuccess(response)
-                    PointOfSales.reset();
+                    PointOfSales.flashFullScreenAlert('success')
                 }).fail(function (response) {
-                    var message = response.responseText;
-                    PointOfSales.alertError(message);
-                    PointOfSales.reset();
+                    PointOfSales.flashFullScreenAlert('error')
                 });
             }
         },
