@@ -156,7 +156,7 @@ class Paypal
     {
         if (is_object($user) && is_numeric($amount)) {
             $now = new \DateTime('now');
-            CreditRecord::addRecord($user, $amount, 'Überweisung per Paypal vom '.$now->format('d.m.Y h:i'));
+            CreditManager::addRecord($user, $amount, 'Überweisung per Paypal vom '.$now->format('d.m.Y h:i'), ['Paypal']);
             return true;
         } else {
             throw new Exception('Something went wrong when updating the User balance!');

@@ -115,13 +115,15 @@ class CreditRecord
 
     public function addCategory($cat){
         if(is_numeric($cat)){
-            $nodeId = $cat;
+            $t = TopicTreeNode::getByID($cat);
         } else {
             $t = TopicTreeNode::getNodeByName($cat);
-            $nodeId = $t->treeNodeID;
+        }
+        if(!is_object($t)){
+            return $this;
         }
         $em = Database::connection()->getEntityManager();
-        $crc = new CreditRecordCategory($this->getId(), $nodeId);
+        $crc = new CreditRecordCategory($this, $t);
         $em->persist($crc);
         $em->flush();
         return $this;

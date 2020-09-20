@@ -27,9 +27,9 @@ class CreditRecordCategory
      */
     protected $nodeId;
 
-    public function __construct($crId, $nodeId) {
-        $this->crId = $crId;
-        $this->nodeId = (integer)$nodeId;
+    public function __construct(CreditRecord $cr, TopicTreeNode $t) {
+        $this->crId = $cr->getId();
+        $this->nodeId = $t->getTreeNodeID();
         return $this;
     }
 
