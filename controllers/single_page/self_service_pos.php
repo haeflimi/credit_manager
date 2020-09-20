@@ -6,6 +6,6 @@ use CreditManager\PageControllers\PosPageController;
 class SelfServicePos extends PosPageController
 {
     public function getCmCategory(){
-        return 'Slef Service POS';
+        return 'Self Service POS';
     }
 }
