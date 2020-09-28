@@ -2,6 +2,7 @@
 namespace CreditManager;
 
 use Concrete\Core\Support\Facade\Database;
+use Concrete\Core\Tree\Node\Type\Topic as TopicTreeNode;
 use Concrete\Core\User\User;
 use CreditManager\Entity\CreditRecord;
 use CreditManager\Repository\CreditRecordList;
@@ -54,6 +55,37 @@ class CreditManager
         $userRecords = $em->getRepository('CreditManager\Entity\CreditRecord')
             ->findBy(array('uId' => $uId), ['timestamp'=>'desc'], $limit);
         return $userRecords;
+    }
+
+    public static function getUserHistorybyCategory($user, $categoryTags = []){
+        if(is_object($user)) {
+            $uId = $user->getUserID();
+        } else {
+            $uId = $user;
+        }
+
+        if(!empty($categoryTags)){
+            foreach($categoryTags as $c){
+                $node = TopicTreeNode::getNodeByName($c);
+                if(is_object($node)){
+                    $nodeIds[] = $node->getTreeNodeID();
+                }
+            }
+
+        $db = Database::connection();
+        $em = $db->getEntityManager();
+        $qb = $em->createQueryBuilder();
+        $qb->select('crc')->from('CreditManager\Entity\CreditRecordCategory', 'crc')
+            ->join('CreditManager\Entity\CreditRecord', 'cr','crc.crId = cr.Id')
+            ->where('cr.uId = :uId')
+            ->andWhere('crc.nodeId IN (:nodeids)')
+            ->orderBy('cr.timestamp', 'DESC')
+            ->setParameter('uId', $uId)
+            ->setParameter('nodeids', $nodeIds);
+        }
+        $nodeIds = [];
+        $query = $qb->getQuery();
+        return $query->getResult();
     }
 
     public static function getRecordCount($user){

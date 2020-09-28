@@ -1,5 +1,5 @@
 <?php
-namespace Concrete\Package\CreditManager\Src\Repository;
+namespace CreditManager\Repository;
 
 use Concrete\Core\Search\ItemList\Database\AttributedItemList as DatabaseItemList;
 use Concrete\Core\Search\Pagination\Pagination;

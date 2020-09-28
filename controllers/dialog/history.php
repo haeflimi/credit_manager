@@ -13,7 +13,6 @@ class History extends Controller
     public function view($uId)
     {
         $history = CreditManager::getUserHistory($uId);
-
         $this->set('history', $history);
         $this->set('uId', $uId);
     }
