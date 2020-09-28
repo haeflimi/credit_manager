@@ -25,6 +25,9 @@
               pagetype="" pagetemplate="blank"
               description="" package="credit_manager">
         </page>
+        <page name="Kontostand" path="/balance" filename="balance.php"
+              pagetype="" description="" patetemplate="full" package="credit_manager">
+        </page>
     </singlepages>
     <blocktypes>
         <blocktype handle="credit_balance" package="credit_manager"/>
