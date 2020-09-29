@@ -61,6 +61,7 @@ class PosPageController extends PageController
 
     public function processOrder()
     {
+        $em = Database::connection()->getEntityManager();
         $order = $this->post('order');
         $token = \Core::make("token");
         if (!$token->validate('pos_order')) {
@@ -85,10 +86,10 @@ class PosPageController extends PageController
         $itemCount = 0;
         $itemNames = [];
         foreach($items as $i){
-            $product = Express::getEntry($i['id']);
-            $totalPrice += ($i['quantity'] * $product->getProductPrice());
+            $product = $em->find('CreditManager\Entity\Product',$i['id']);
+            $totalPrice += ($i['quantity'] * $product->getPrice());
             $itemCount += $i['quantity'];
-            $itemNames[] = $product->getProductName();
+            $itemNames[] = $product->getName();
         }
         $message = $itemCount.' Produkte gekauft: ('.implode(' ,', $itemNames).')';
         $lanName = CurrentLan::getLANTitle();

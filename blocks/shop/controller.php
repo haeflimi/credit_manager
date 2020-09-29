@@ -146,7 +146,7 @@ class Controller extends BlockController {
           return new Response('Invalid Request Token.', 401);
       }
       $orderPosition = $em->find('CreditManager\Entity\OrderPosition',$opId);
-      if($orderPosition->getStatus() != 'ordered'){
+      if($orderPosition->getStatus() != 'open'){
           return new Response('Cannot delete processed Order.', 401);
       } else {
           $em->remove($orderPosition);

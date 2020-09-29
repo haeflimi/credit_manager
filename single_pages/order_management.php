@@ -185,6 +185,7 @@ $this->inc('elements/header_top.php');  ?>
                 }).fail(function (response) {
                     OrderManagement.alertError(response)
                 });
+                this.selected_orders = [];
             },
             setDelivered: function(){
                 $.post("<?=$orderSetDeliveredAction?>", {selected_orders:this.selected_orders, ccm_token: this.ccm_token}, function (response) {
@@ -193,6 +194,7 @@ $this->inc('elements/header_top.php');  ?>
                 }).fail(function (response) {
                     OrderManagement.alertError(response)
                 });
+                this.selected_orders = [];
             },
             setClosed: function(){
                 $.post("<?=$orderSetClosedAction?>", {selected_orders:this.selected_orders, ccm_token: this.ccm_token}, function (response) {
@@ -201,6 +203,7 @@ $this->inc('elements/header_top.php');  ?>
                 }).fail(function (response) {
                     OrderManagement.alertError(response)
                 });
+                this.selected_orders = [];
             },
             groupBy: function(xs, key) {
                 return xs.reduce(function(rv, x) {

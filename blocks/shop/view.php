@@ -105,19 +105,21 @@ if(empty($userId)):?>
                     hide: true,
                 });
             },
-            confirm : function () {
+            confirm: function () {
                 var order = {
                     product_id: this.selected_product,
                     user_id: this.user_id
                 }
                 this.is_processing = true;
-                $.post("<?=$this->action('orderProduct')?>", {order,ccm_token: this.ccm_token}, function (response) {
+                $.post("<?=$this->action('orderProduct')?>", {order, ccm_token: this.ccm_token}, function (response) {
                     Shop.alertSuccess(response);
                     this.is_processing = false;
                     location = location;
                 }).fail(function (response) {
                     var message = response.responseText;
                     Shop.alertError(message);
+                    this.is_processing = false;
+                    location = location;
                 });
             }
         }
