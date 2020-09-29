@@ -93,7 +93,7 @@ class Controller extends BlockController {
       $this->set('products', json_encode($products));
 
       $u = new User();
-      $orderObjects = $em->getRepository('CreditManager\Entity\OrderPosition')->findBy(['uId'=>$u->getUserID()]);
+      $orderObjects = $em->getRepository('CreditManager\Entity\OrderPosition')->findBy(['uId'=>$u->getUserID(),'status'=>['open','ordered']]);
       $orders = [];
       $allStates = OrderPosition::getAllStates();
       foreach($orderObjects as $oo)
