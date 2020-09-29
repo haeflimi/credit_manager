@@ -12,7 +12,7 @@ use Pagerfanta\Adapter\DoctrineDbalAdapter;
  * An object that allows a filtered list of pages to be returned.
  *
  */
-class CreditRecordList extends DatabaseItemList
+class ProductList extends DatabaseItemList
 {
 
     /** @var  \Closure | integer | null */
@@ -22,17 +22,17 @@ class CreditRecordList extends DatabaseItemList
      * @var array
      */
     protected $autoSortColumns = array(
-        'cr.timestamp'
+        'p.name'
     );
 
     public function createQuery()
     {
-        return $this->query->select('cr.timestamp, cr.Id, cr.uId, cr.comment');
+        return $this->query->select('p.Id, p.name, p.price');
     }
 
     public function finalizeQuery(\Doctrine\DBAL\Query\QueryBuilder $query)
     {
-        $query->from('cmCreditRecord', 'cr');
+        $query->from('cmProduct', 'p');
         return $query;
     }
 
@@ -43,28 +43,13 @@ class CreditRecordList extends DatabaseItemList
     public function getResult($queryRow)
     {
         $em = Database::connection()->getEntityManager();
-        return $em->getRepository('CreditManager\Entity\CreditRecord')->getById( $queryRow['Id'] );
+        return $em->getRepository('CreditManager\Entity\Product')->findOneBy( ['Id' => $queryRow['Id']] );
     }
 
     public function getTotalResults()
     {
         $em = Database::connection()->getEntityManager();
-        return $em->getRepository('CreditManager\Entity\CreditRecord')->count();
-    }
-
-    /**
-     * Filters keyword fields by keywords
-     * @param $keywords
-     */
-    public function filterByKeywords($keywords)
-    {
-        $expressions = array(
-            $this->query->expr()->like('cr.timestamp', ':keywords'),
-            $this->query->expr()->like('cr.comment', ':keywords')
-        );
-        $expr = $this->query->expr();
-        $this->query->andWhere(call_user_func_array(array($expr, 'orX'), $expressions));
-        $this->query->setParameter('keywords', '%' . $keywords . '%');
+        return $em->getRepository('CreditManager\Entity\Product')->count();
     }
 
     protected function getAttributeKeyClassName()

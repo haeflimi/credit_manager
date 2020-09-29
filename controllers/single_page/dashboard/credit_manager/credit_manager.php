@@ -1,5 +1,5 @@
 <?php
-namespace Concrete\Package\CreditManager\Controller\SinglePage\Dashboard;
+namespace Concrete\Package\CreditManager\Controller\SinglePage\Dashboard\CreditManager;
 
 use Concrete\Core\Page\Controller\DashboardPageController;
 use Concrete\Core\Tree\Type\Topic as TopicTree;
@@ -23,7 +23,6 @@ class CreditManager extends DashboardPageController
     public function __construct(Page $c)
     {
         parent::__construct($c);
-
     }
 
     public function view()

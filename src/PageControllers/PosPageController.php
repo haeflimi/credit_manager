@@ -37,15 +37,14 @@ class PosPageController extends PageController
         }
         $this->set('users', json_encode($users));
 
-        $entity = Express::getObjectByHandle('product');
-        $list = new EntryList($entity);
-        $productObjects = $list->getResults();
+        $em = Database::connection()->getEntityManager();
+        $productObjects = $em->getRepository('CreditManager\Entity\Product')->findAll();
         $products = [];
         foreach($productObjects as $pO){
             $product['id'] = $pO->getId();
-            $product['name'] = $pO->getProductName();
-            $product['price'] = $pO->getProductPrice();
-            $product['image'] = $pO->getProductImage()->getRelativePath();
+            $product['name'] = $pO->getName();
+            $product['price'] = $pO->getPrice();
+            $product['image'] = is_object($pO->getImage())?$pO->getImage()->getRelativePath():'';
             $products[] = $product;
         }
         $this->set('products', json_encode($products));

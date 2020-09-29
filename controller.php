@@ -20,7 +20,7 @@ class Controller extends Package implements ProviderAggregateInterface
 {
     protected $pkgHandle = 'credit_manager';
     protected $appVersionRequired = '8.4';
-    protected $pkgVersion = '1.4.20';
+    protected $pkgVersion = '1.4.33';
     protected $pkgAutoloaderRegistries = array(
         'src/PaymentMethods' => '\CreditManager\PaymentMethods',
         'src/Entity' => '\CreditManager\Entity',
@@ -59,6 +59,10 @@ class Controller extends Package implements ProviderAggregateInterface
             '/ccm/credit_manager/add_record/{uId}' => array('\Concrete\Package\CreditManager\Controller\Dialog\AddRecord::view'),
             '/ccm/credit_manager/add_record/{uId}/confirm/' => array('\Concrete\Package\CreditManager\Controller\Dialog\AddRecord::confirm'),
             '/ccm/credit_manager/history/{uId}' => array('\Concrete\Package\CreditManager\Controller\Dialog\History::view'),
+            '/ccm/credit_manager/add_product' => array('\Concrete\Package\CreditManager\Controller\Dialog\AddProduct::view'),
+            '/ccm/credit_manager/add_product/confirm' => array('\Concrete\Package\CreditManager\Controller\Dialog\AddProduct::confirm'),
+            '/ccm/credit_manager/edit_product/{pId}/confirm' => array('\Concrete\Package\CreditManager\Controller\Dialog\AddProduct::confirm'),
+            '/ccm/credit_manager/edit_product/{pId}' => array('\Concrete\Package\CreditManager\Controller\Dialog\AddProduct::view'),
         ));
 
         $al = AssetList::getInstance();
@@ -100,6 +104,21 @@ class Controller extends Package implements ProviderAggregateInterface
 
         $ci = new ContentImporter();
         $ci->importContentFile($pkg->getPackagePath() . '/install.xml');
+
+        // Setup Single Pages
+        // Dashboard
+        $sp  = SinglePage::add('/dashboard/credit_manager/products', $pkg);
+        $sp->update(array('cName' => t('Products'), 'cDescription' => ''));
+        $sp  = SinglePage::add('/dashboard/credit_manager/credit_manager', $pkg);
+        $sp->update(array('cName' => t('Credit Manager'), 'cDescription' => ''));
+        // Frontend
+        $sp  = SinglePage::add('/balance', $pkg);
+        $sp->update(array('cName' => t('Kontostand'), 'cDescription' => ''));
+        $sp  = SinglePage::add('/pos', $pkg);
+        $sp->update(array('cName' => t('POS'), 'cDescription' => ''));
+        $sp  = SinglePage::add('/self_service_pos', $pkg);
+        $sp->update(array('cName' => t('Self-Service POS'), 'cDescription' => ''));
+
 
         // Set Groups and Permissions
         $this->setGroupsAndPermissions($pkg);

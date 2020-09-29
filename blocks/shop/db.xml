@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<schema version="0.3">
+    <table name="btCmShop">
+        <field name="bID" type="I">
+            <key/>
+            <unsigned/>
+        </field>
+        <field name="active_category" type="I"></field>
+        <field name="run_time" type="C" size="255"></field>
+    </table>
+</schema>

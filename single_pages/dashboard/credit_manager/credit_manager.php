@@ -50,7 +50,7 @@ $nh = Core::make('helper/navigation') ?>
 
 <div class="ccm-dashboard-content-full">
     <table class="table ccm-search-results-table">
-        <thead>
+        <thead class="hidden-print">
         <tr>
             <th><?php $dir = ($ul->getActiveSortDirection() == 'asc' ? 'desc' : 'asc');?>
                 <a href="<?=$ul->getSortURL('u.uName',$dir)?>">Nickname</a>

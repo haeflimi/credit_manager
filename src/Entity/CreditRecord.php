@@ -48,7 +48,7 @@ class CreditRecord
      * @ManyToMany(targetEntity="CreditManager\Entity\CreditRecordCategory")
      * @JoinTable(name="cmCreditRecordCategory",
      *      joinColumns={@JoinColumn(name="Id", referencedColumnName="crId")},
-     *      inverseJoinColumns={@JoinColumn(name="crId", referencedColumnName="Id", unique=true)}
+     *      inverseJoinColumns={@JoinColumn(name="crId", referencedColumnName="Id", unique=true, onDelete="CASCADE")}
      *      )
      */
     protected $categorie_tags;
