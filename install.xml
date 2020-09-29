@@ -7,9 +7,11 @@
                 <topic name="Bar"/>
                 <topic name="Überweisung"/>
             </category>
-            <topic name="Self Service"/>
+            <topic name="Catering POS"/>
+            <topic name="Self Service POS"/>
             <topic name="Event Checkout"/>
             <topic name="Event Checkin"/>
+            <topic name="Catering Order"/>
         </tree>
     </trees>
     <blocktypes>

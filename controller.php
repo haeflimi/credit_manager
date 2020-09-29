@@ -20,7 +20,7 @@ class Controller extends Package implements ProviderAggregateInterface
 {
     protected $pkgHandle = 'credit_manager';
     protected $appVersionRequired = '8.4';
-    protected $pkgVersion = '1.4.33';
+    protected $pkgVersion = '1.4.34';
     protected $pkgAutoloaderRegistries = array(
         'src/PaymentMethods' => '\CreditManager\PaymentMethods',
         'src/Entity' => '\CreditManager\Entity',
@@ -117,6 +117,8 @@ class Controller extends Package implements ProviderAggregateInterface
         $sp  = SinglePage::add('/pos', $pkg);
         $sp->update(array('cName' => t('POS'), 'cDescription' => ''));
         $sp  = SinglePage::add('/self_service_pos', $pkg);
+        $sp->update(array('cName' => t('Self-Service POS'), 'cDescription' => ''));
+        $sp  = SinglePage::add('/order_management', $pkg);
         $sp->update(array('cName' => t('Self-Service POS'), 'cDescription' => ''));
 
 

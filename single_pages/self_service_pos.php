@@ -20,12 +20,12 @@ $this->inc('elements/header_top.php');  ?>
                             <li class="nav-item">
                                 <a class="nav-link active" href="#all" data-toggle="tab" role="tab" id="all-tab">Alle</a>
                             </li>
-                            <li class="nav-item">
+                            <!--<li class="nav-item">
                                 <a class="nav-link disabled" href="#getraenke" data-toggle="tab" role="tab" id="getraenke-tab">Getränke</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link disabled" href="#snacks" data-toggle="tab" role="tab" id="snacks-tab">Snacks</a>
-                            </li>
+                            </li>-->
                         </ul>
                     </div>
                     <div class="card-body">
@@ -37,7 +37,7 @@ $this->inc('elements/header_top.php');  ?>
                                         <span class="pull-right">
                                             <button class="btn btn-success btn-sm" v-on:click="addItem(product.id)"><i class="fa fa-plus"></i></button>
                                         </span>
-                                        <span class="pull-right product-price">{{product.price}}</span>
+                                        <span class="pull-right product-price">{{product.price | currency }}</span>
                                     </li>
                                 </ul>
                             </div>
@@ -61,7 +61,7 @@ $this->inc('elements/header_top.php');  ?>
                     </ul>
                     <div class="card-footer mt-auto">
                         <span>
-                            <strong>Total: {{totalAmount}}</strong>
+                            <strong>Total: {{totalAmount | currency }}</strong>
                         </span>
                     </div>
                 </div>
@@ -82,8 +82,6 @@ $this->inc('elements/header_top.php');  ?>
                             <div class="col-md-8">
                                 <div class="card-body">
                                     <div class="card-title">{{ active_user.name }}</div>
-                                    <div class="small muted">User ID: {{ active_user.id }}</div>
-                                    <div class="small muted">Badge ID: {{ active_user.badge_id }}</div>
                                 </div>
                             </div>
                         </div>
@@ -117,6 +115,9 @@ $this->inc('elements/header_top.php');  ?>
     </div>
 </section>
 <script>
+    Vue.filter('currency', function (value) {
+        return parseFloat(value).toFixed(2)+' Fr.';
+    });
     $(document).click(function(event) {
         var $target = $(event.target);
         PointOfSales.setFocus();
@@ -265,6 +266,12 @@ $this->inc('elements/header_top.php');  ?>
 <style>
     #comp-pos {
         height: 100vh;
+    }
+    #ccm-toolbar {
+        display: none !important;
+    }
+    .ccm-notification-help-launcher {
+        display: none !important;
     }
     #comp-pos .product-item .product-price {
         padding-right: 30px;

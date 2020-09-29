@@ -1,6 +1,10 @@
-<?php defined('C5_EXECUTE') or die("Access Denied.");?>
-
-<div id="shop-<?=$bId;?>" class="catering-order-block">
+<?php defined('C5_EXECUTE') or die("Access Denied.");
+if(empty($userId)):?>
+<div v-if="!user_id" class="alert alert-info">
+    You must be signed in to use this Functionality.
+</div>
+<?php return; endif ?>
+<div id="shop-<?=$bId;?>" v-if="user_id > 0" class="catering-order-block">
     <h3>Deine Bestellungen für {{ run_time }}:</h3>
     <div v-if="orders.length == 0" class="alert alert-info">
         Aktuell keine Bestellungen vorhanden
@@ -62,7 +66,7 @@
         data: {
             active_alert: null,
             run_time: '<?=$run_time?>',
-            user_id: <?=$userId?>,
+            user_id: '<?=$userId?>',
             products: <?=$products?>,
             is_processing: false,
             orders: <?=$orders?>,
