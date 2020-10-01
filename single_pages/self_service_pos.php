@@ -193,6 +193,7 @@ $this->inc('elements/header_top.php');  ?>
                 this.active_alert = null;
                 this.is_processing = false;
                 this.badge_id = '';
+                location = location;
                 this.$nextTick(() => this.setFocus());
             },
             flashFullScreenAlert(type) {

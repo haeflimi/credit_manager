@@ -199,7 +199,8 @@ $this->inc('elements/header_top.php');  ?>
                 this.active_alert = null;
                 this.badge_id = '';
                 this.is_processing = false;
-                this.setFocus();
+                location = location;
+                this.$nextTick(() => this.setFocus());
             },
             alertSuccess: function(message) {
                 new PNotify({
