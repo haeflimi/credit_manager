@@ -77,7 +77,7 @@ $this->inc('elements/header_top.php');  ?>
                     <div class="card-body" v-if="active_user">
                         <div class="row no-gutters">
                             <div class="col-md-4">
-                                <img :src="active_user.avatar" class="card-img" alt="TuBorg">
+                                <img :src="active_user.avatar" class="card-img" :alt="active_user.name">
                             </div>
                             <div class="col-md-8">
                                 <div class="card-body">
@@ -191,10 +191,9 @@ $this->inc('elements/header_top.php');  ?>
                 this.selected_products.splice(0, this.selected_products.length);
                 this.active_user = null;
                 this.active_alert = null;
-                this.badge_id = '';
                 this.is_processing = false;
                 this.badge_id = '';
-                this.setFocus();
+                this.$nextTick(() => this.setFocus());
             },
             flashFullScreenAlert(type) {
                 this.active_alert = type;

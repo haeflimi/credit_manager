@@ -32,7 +32,11 @@ class PosPageController extends PageController
             $user['id'] = $u->getUserId();
             $user['badge_id'] = $u->getAttribute('badge_id');
             $user['name'] = $u->getUserName();
-            if ($u->hasAvatar())$user['avatar'] = '/application/files/avatars/' . $u->getUserID() . '_sm.jpg';
+            if ($u->hasAvatar()){
+                $user['avatar'] = '/application/files/avatars/' . $u->getUserID() . '_sm.jpg';
+            } else {
+                $user['avatar'] = '';
+            }
             $users[] = $user;
         }
         $this->set('users', json_encode($users));
