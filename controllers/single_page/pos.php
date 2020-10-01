@@ -16,13 +16,20 @@ class Pos extends PosPageController
         $qb->select('p')
             ->from('CreditManager\Entity\Product', 'p')
             ->innerJoin('CreditManager\Entity\ProductCategory', 'pc','WITH', 'p.Id = pc.pId')
-            ->where('p.isOrder = :isOrder')
             ->andWhere('pc.nodeId IN (:categoryNodeIds)')
             ->orderBy('p.name')
-            ->setParameter('isOrder', 1)
             ->setParameter('categoryNodeIds', [1977,1974]);
         $query = $qb->getQuery();
         $productObjects = $query->getResult();
+        $products = [];
+        foreach($productObjects as $po){
+            if(empty($po))continue;
+            $products[] = [
+                'id' => $po->getId(),
+                'name' => $po->getName(),
+                'price' => $po->getPrice()
+            ];
+        }
         return $products;
     }
 }

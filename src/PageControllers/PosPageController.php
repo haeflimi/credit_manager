@@ -95,17 +95,4 @@ class PosPageController extends PageController
     public function getCmCategory(){
         return '';
     }
-
-    public function getVisibleProducts(){
-        $em = Database::connection()->getEntityManager();
-        $productObjects = $em->getRepository('CreditManager\Entity\Product')->findBy(['isSelfService'=>1]);
-        $products = [];
-        foreach($productObjects as $pO){
-            $product['id'] = $pO->getId();
-            $product['name'] = $pO->getName();
-            $product['price'] = $pO->getPrice();
-            $product['image'] = is_object($pO->getImage())?$pO->getImage()->getRelativePath():'';
-            $products[] = $product;
-        }
-    }
 }
