@@ -44,7 +44,7 @@ if(empty($userId)):?>
                     </div></td>
                     <td>&nbsp;</td>
                     <td>{{ product.name }}</td>
-                    <td class="text-align-right">{{ product.price }}</td>
+                    <td class="text-align-right">{{ product.price | currency }}</td>
                 </tr>
             </tbody>
         </table>
@@ -61,6 +61,9 @@ if(empty($userId)):?>
 </div>
 
 <script>
+    Vue.filter('currency', function (value) {
+        return parseFloat(value).toFixed(2)+' Fr.';
+    });
     var Shop = new Vue({
         el: '#shop-<?=$bId;?>',
         data: {
