@@ -37,17 +37,7 @@ class PosPageController extends PageController
         }
         $this->set('users', json_encode($users));
 
-        $em = Database::connection()->getEntityManager();
-        $productObjects = $em->getRepository('CreditManager\Entity\Product')->findAll();
-        $products = [];
-        foreach($productObjects as $pO){
-            $product['id'] = $pO->getId();
-            $product['name'] = $pO->getName();
-            $product['price'] = $pO->getPrice();
-            $product['image'] = is_object($pO->getImage())?$pO->getImage()->getRelativePath():'';
-            $products[] = $product;
-        }
-        $this->set('products', json_encode($products));
+        $this->set('products', json_encode($this->getVisibleProducts()));
 
         $this->requireAsset('javascript', 'vue');
         $this->requireAsset('javascript', 'slimScroll');
@@ -104,5 +94,18 @@ class PosPageController extends PageController
 
     public function getCmCategory(){
         return '';
+    }
+
+    public function getVisibleProducts(){
+        $em = Database::connection()->getEntityManager();
+        $productObjects = $em->getRepository('CreditManager\Entity\Product')->findBy(['isSelfService'=>1]);
+        $products = [];
+        foreach($productObjects as $pO){
+            $product['id'] = $pO->getId();
+            $product['name'] = $pO->getName();
+            $product['price'] = $pO->getPrice();
+            $product['image'] = is_object($pO->getImage())?$pO->getImage()->getRelativePath():'';
+            $products[] = $product;
+        }
     }
 }

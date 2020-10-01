@@ -312,4 +312,8 @@ $this->inc('elements/header_top.php');  ?>
     #comp-pos [v-cloak] {
         display: none;
     }
+    #comp-pos  .products .slimScroll {
+        max-height: 400px;
+        overflow-y: scroll;
+    }
 </style>

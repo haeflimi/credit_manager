@@ -41,7 +41,7 @@ $nh = Core::make('helper/navigation'); ?>
                     <?=$product->getName()?>
                 </td>
                 <td class="text-center"><?php foreach($product->getCategories() as $c):?>
-                    <span class="badge badge-primary"><?=$c->getCategoryName()?></span>
+                    <span class="badge badge-primary" data-categoryId="<?=$c->getCategoryId()?>"><?=$c->getCategoryName()?></span>
                     <?php endforeach; ?>
                 </td>
                 <td class="text-right"><?=$product->getPrice()?></td>

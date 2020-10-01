@@ -36,7 +36,7 @@ $this->inc('elements/header_top.php');?>
                             <td><?=$record->getTimestamp()->format('d.m.Y H:i')?></td>
                             <td><?=$record->getComment()?></td>
                             <td><?php foreach($record->getCategories() as $crc){
-                                    echo '<span class="badge badge-primary pr-2">'.$crc->getCategoryName().'</span>';
+                                    echo '<span class="badge badge-primary pr-2" data-nodeid="'.$crc->getCategoryId().'">'.$crc->getCategoryName().'</span>';
                             }?></td>
                             <td><?=$record->getValue()?></td>
                         </tr>
