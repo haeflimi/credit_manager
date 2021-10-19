@@ -27,6 +27,13 @@ defined('C5_EXECUTE') or die(_("Access Denied.")); ?>
             </tr>
             <?php endif;?>
             </tbody>
+            <tfoot>
+            <tr>
+                <td></td>
+                <td></td>
+                <td><a href="<?=$this->action('history')?>" class="btn btn-primary pull-right">Alle anzeigen</a></td>
+            </tr>
+            </tfoot>
 
         </table>
     </div>

@@ -48,10 +48,18 @@ class Controller extends BlockController
     public function view()
     {
         $user = new User();
-        $ui = $user->getUserInfoObject();
         $history = CreditManager::getUserHistory($user, $this->limit);
         $this->set('count', CreditManager::getRecordCount($user));
         $this->set('limit', $this->limit);
         $this->set('history', $history);
+    }
+
+    public function action_history()
+    {
+        $user = new User();
+        $history = CreditManager::getUserHistory($user, CreditManager::getRecordCount($user));
+        $this->set('history', $history);
+        $this->set('uId', $user->getUserID());
+        $this->render('complete');
     }
 }

@@ -18,4 +18,9 @@ class Balance extends PageController
         $this->set('balance', $balance);
         $this->set('history', $history);
     }
+
+    public function history($user_id)
+    {
+
+    }
 }
