@@ -71,17 +71,16 @@ class CreditManager
                     $nodeIds[] = $node->getTreeNodeID();
                 }
             }
-
-        $db = Database::connection();
-        $em = $db->getEntityManager();
-        $qb = $em->createQueryBuilder();
-        $qb->select('crc')->from('CreditManager\Entity\CreditRecordCategory', 'crc')
-            ->join('CreditManager\Entity\CreditRecord', 'cr','crc.crId = cr.Id')
-            ->where('cr.uId = :uId')
-            ->andWhere('crc.nodeId IN (:nodeids)')
-            ->orderBy('cr.timestamp', 'DESC')
-            ->setParameter('uId', $uId)
-            ->setParameter('nodeids', $nodeIds);
+            $db = Database::connection();
+            $em = $db->getEntityManager();
+            $qb = $em->createQueryBuilder();
+            $qb->select('crc')->from('CreditManager\Entity\CreditRecordCategory', 'crc')
+                ->join('CreditManager\Entity\CreditRecord', 'cr','crc.crId = cr.Id')
+                ->where('cr.uId = :uId')
+                ->andWhere('crc.nodeId IN (:nodeids)')
+                ->orderBy('cr.timestamp', 'DESC')
+                ->setParameter('uId', $uId)
+                ->setParameter('nodeids', $nodeIds);
         }
         $nodeIds = [];
         $query = $qb->getQuery();
@@ -115,5 +114,33 @@ class CreditManager
         $em->flush();
         $cr->addCategories($categories);
         return $cr;
+    }
+
+    public static function getRevenueByCategory($startDate, $endDate, $categories = []){
+        foreach($categories as $c){
+            $node = TopicTreeNode::getNodeByName($c);
+            if(is_object($node)){
+                $nodeIds[] = $node->getTreeNodeID();
+            }
+        }
+
+        $db = Database::connection();
+        $em = $db->getEntityManager();
+        $qb = $em->createQueryBuilder();
+
+        $qb->select('SUM(cr.value)')
+            ->from('CreditManager\Entity\CreditRecordCategory', 'crc')
+            ->join('CreditManager\Entity\CreditRecord', 'cr')
+            ->where('crc.crId = cr.Id')
+            ->andWhere('cr.timestamp >= :start')
+            ->andWhere('cr.timestamp <= :end')
+            ->andWhere('crc.nodeId IN (:nodeids)')
+            ->orderBy('cr.timestamp', 'DESC')
+            ->setParameter('start', $startDate)
+            ->setParameter('end', $endDate)
+            ->setParameter('nodeids', $nodeIds);
+        $query = $qb->getQuery();
+        $nodeIds = [];
+        return $query->getSingleScalarResult();
     }
 }
